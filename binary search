@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+int search(vector<int> &nums, int target) {
+    // Write your code here.
+    int n=nums.size();
+    int l=0, r=n;
+    int mid;
+    while(l<r){
+      mid=(l+r)/2;
+    if(nums[mid]==target)
+        return mid;
+    else if (target <= nums[mid]) 
+        r = mid;
+    else 
+        l=mid+1;
+    }
+    return -1;
+}
