@@ -1,0 +1,23 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+    int main(){
+  int n;
+  cout<<"enter decimal number";
+  cin>>n;
+  if(n<0)
+    cout<<"Please enter non negative number";
+  vector<int> remainder;
+  int quotient;
+  while(n>0){
+     remainder.push_back(n%2);
+     quotient=n/2;
+    n=quotient;
+  }
+  cout<<"binary representation:";
+  for(int i=remainder.size()-1;i>=0;i--){
+    cout<<remainder[i];
+  }
+  return 0;
+    
+}
