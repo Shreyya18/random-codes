@@ -1,0 +1,13 @@
+You are given a number 'n'.
+Return an integer that is the reverse of ‘n’.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int reverseNumber(int n)
+{
+	// Write your code here.
+	int a=0;
+        while (n > 0) {
+          a=a*10+(n%10);
+          n = n / 10;
+        }
+		return a;
+}
