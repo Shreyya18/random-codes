@@ -1,0 +1,49 @@
+Given an array 'v' of 'n' numbers.
+Your task is to find and return the highest and lowest frequency elements.
+If there are multiple elements that have the highest frequency or lowest frequency, pick the smallest element.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+vector<int> getFrequencies(vector<int>& v) {    
+    std::unordered_map<int, int> freqMap;
+
+    // Count the frequencies of each element
+    for (int num : v) {
+        freqMap[num]++;
+    }
+
+    // Initialize min and max frequencies
+    int maxFreq = 0;
+    int minFreq = INT_MAX;
+
+    // Find the max and min frequencies
+    for (const auto& pair : freqMap) {
+        if (pair.second > maxFreq) {
+            maxFreq = pair.second;
+        }
+        if (pair.second < minFreq) {
+            minFreq = pair.second;
+        }
+    }
+
+    // Find elements with max and min frequencies
+    std::vector<int> maxFreqElements;
+    std::vector<int> minFreqElements;
+    for (const auto& pair : freqMap) {
+        if (pair.second == maxFreq) {
+            maxFreqElements.push_back(pair.first);
+        }
+        if (pair.second == minFreq) {
+            minFreqElements.push_back(pair.first);
+        }
+    }
+
+    // Sort the elements
+    std::sort(maxFreqElements.begin(), maxFreqElements.end());
+    std::sort(minFreqElements.begin(), minFreqElements.end());
+
+    // Combine maxFreqElements and minFreqElements into a single vector
+    std::vector<int> result;
+    result.push_back(maxFreqElements[0]);
+    result.push_back(minFreqElements[0]);
+
+    return result;
+}
