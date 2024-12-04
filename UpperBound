@@ -1,0 +1,18 @@
+
+--------------------------------------------
+int upperBound(vector<int> &arr, int x, int n){
+	// Write your code here.	
+    int low = 0, high = n;
+    
+    while (low < high) {
+        int mid = low + (high - low) / 2;
+        
+        if (arr[mid] > x) {
+            high = mid; // Narrow down to the left half
+        } else {
+            low = mid + 1; // Narrow down to the right half
+        }
+    }
+    
+    return low;
+}
