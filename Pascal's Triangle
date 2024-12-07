@@ -1,0 +1,23 @@
+You are given an integer N. Your task is to return a 2-D ArrayList containing the pascal’s triangle till the row N.
+A Pascal's triangle is a triangular array constructed by summing adjacent elements in preceding rows. Pascal's triangle contains the values of the binomial coefficient
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include <bits/stdc++.h>
+vector<vector<long long int>> printPascal(int n) 
+{
+  // Write your code here.
+  vector<vector<long long int>> pascal(n); 
+  // Iterate through each row 
+  for (int i = 0; i < n; ++i) { 
+    // Resize the row to contain i+1 elements 
+  pascal[i].resize(i + 1); 
+  // The first and last values in each row are 1 
+  pascal[i][0] = pascal[i][i] = 1; 
+  // Fill in the rest of the values using the values from the previous row 
+  for (int j = 1; j < i; ++j) 
+  {
+     pascal[i][j] = pascal[i - 1][j - 1] + pascal[i - 1][j]; 
+  } 
+  } 
+  return pascal; 
+  }
+
