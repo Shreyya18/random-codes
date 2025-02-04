@@ -1,0 +1,80 @@
+Given an array of positive integers arr[], return the second largest element from the array. If the second largest element doesn't exist then return -1.
+Note: The second largest element should not be equal to the largest element.
+
+Examples:
+Input: arr[] = [12, 35, 1, 10, 34, 1]
+Output: 34
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+// } Driver Code Ends
+// User function template for C++
+class Solution {
+  public:
+    int getSecondLargest(vector<int> &arr) {
+        //brute force
+        int n=arr.size();
+        sort(arr.begin(),arr.end());
+        return arr[n-2];
+      }
+-----------------------------------------------------------------
+    int getSecondLargest(vector<int> &arr) {
+        //better
+        int n=arr.size();
+        int large=arr[0];
+        for(int i=0;i<n;i++){
+          if(arr[i]>large)
+            large=arr[i];
+        }
+        
+        int slarge=-1;
+        for(int i=0;i<n;i++){
+        if(arr[i]>slarge && arr[i]!=large)
+          slarge=arr[i];
+        }
+        return slarge;
+      }
+----------------------------------------------------------------------------
+    int getSecondLargest(vector<int> &arr) {
+        //optimal
+        int n=arr.size();
+        int large=arr[0],slarge=-1;
+        for(int i=0;i<n;i++){
+            if(arr[i]>large){
+                 slarge=large;
+                 large=arr[i];
+             }
+             else if(arr[i]<large && arr[i]>slarge){
+                 slarge=arr[i];
+             }
+         }
+         return slarge;
+        
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        Solution ob;
+        int ans = ob.getSecondLargest(arr);
+        cout << ans << endl;
+        cout << "~" << endl;
+    }
+    return 0;
+}
+
+// } Driver Code Ends
