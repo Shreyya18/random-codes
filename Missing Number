@@ -1,0 +1,81 @@
+Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+
+Example 1:
+Input: nums = [3,0,1]
+Output: 2
+Explanation:
+n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+
+Example 2:
+Input: nums = [0,1]
+Output: 2
+Explanation:
+n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+//brute
+int missingNumber(vector<int>&a, int N) {
+    // Outer loop that runs from 1 to N:
+    for (int i = 1; i <= N; i++) {
+        // flag variable to check
+        //if an element exists
+        int flag = 0;
+        //Search the element using linear search:
+        for (int j = 0; j < N - 1; j++) {
+            if (a[j] == i) {
+                // i is present in the array:
+                flag = 1;
+                break;
+            }
+        }
+        // check if the element is missing i.e flag == 0:
+        if (flag == 0) return i;
+    }
+    // The following line will never execute.It is just to avoid warnings.
+    return -1;
+}
+---------------------------------------------------------------------------------------------
+//better
+int missingNumber(vector<int>&a, int N) {
+
+    int hash[N + 1] = {0}; //hash array
+
+    // storing the frequencies:
+    for (int i = 0; i < N - 1; i++)
+        hash[a[i]]++;
+
+    //checking the freqencies for numbers 1 to N:
+    for (int i = 1; i <= N; i++) {
+        if (hash[i] == 0) {
+            return i;
+------------------------------------------------------------------------------------------------------
+//optimal-1
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n=nums.size();
+        int sum=0, numsum=0;;
+        for(int i=0;i<=n;i++){
+            sum=sum+i;
+        }
+        // sum=n*(n+1)/2;
+        for(int i=0;i<n;i++){
+            numsum+=nums[i];
+        }
+        return sum-numsum;
+    }
+
+};
+--------------------------------------------------------------------------------------------------------------
+//optimal-2
+int missingNumber(vector<int>&a, int N) {
+
+    int xor1 = 0, xor2 = 0;
+
+    for (int i = 0; i < N - 1; i++) {
+        xor2 = xor2 ^ a[i]; // XOR of array elements
+        xor1 = xor1 ^ (i + 1); //XOR up to [1...N-1]
+    }
+    xor1 = xor1 ^ N; //XOR up to [1...N]
+
+    return (xor1 ^ xor2); // the missing number
+}
