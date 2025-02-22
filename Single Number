@@ -1,0 +1,88 @@
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+ Example 1:
+Input: nums = [2,2,1]
+Output: 1
+
+Example 2:
+Input: nums = [4,1,2,1,2]
+Output: 4
+
+Example 3:
+Input: nums = [1]
+Output: 1
+-------------------------------------------------------------------------------------------------------------------------------------------
+//brute
+int getSingleElement(vector<int> &arr) {
+    int n = arr.size();
+    for (int i = 0; i < n; i++) {
+        int num = arr[i]; // selected element
+        int cnt = 0;
+        for (int j = 0; j < n; j++) {
+            if (arr[j] == num)
+                cnt++;
+        }
+        // if the occurrence is 1 return ans:
+        if (cnt == 1) return num;
+    }
+    //This line will never execute if the array contains a single element.
+    return -1;
+}
+-------------------------------------------------------------------------------------------------------
+//better approach-1  using hash array
+int getSingleElement(vector<int> &arr) {
+    int n = arr.size();
+    // Find the maximum element:
+    int maxi = arr[0];
+    for (int i = 0; i < n; i++) {
+        maxi = max(maxi, arr[i]);
+    }
+
+    // Declare hash array of size maxi+1 And hash the given array:
+    vector<int> hash(maxi + 1, 0);
+    for (int i = 0; i < n; i++) {
+        hash[arr[i]]++;
+    }
+
+    //Find the single element and return the answer:
+    for (int i = 0; i < n; i++) {
+        if (hash[arr[i]] == 1)
+            return arr[i];
+    }
+    //This line will never execute if the array contains a single element.
+    return -1;
+}
+--------------------------------------------------------------------------------------------------------
+//better approach-2 using map data structure
+//#include<bits/stdc++.h>
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int n=nums.size();
+        int value;
+        unordered_map<int,int> hash;
+        for(int i=0;i<n;i++){
+            hash[nums[i]]++;
+        }
+       for (auto it : hash) {
+        if (it.second == 1)
+            return it.first;
+       }
+        return -1;
+  }
+};
+-----------------------------------------------------------------------------------------------------------------
+//optimal approach using xor
+#include<bits/stdc++.h>
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int n=nums.size();
+         int xorr = 0;
+            for(int i=0;i<n;i++){
+                xorr=xorr^nums[i];
+            }
+            return xorr;
+    }
+};
