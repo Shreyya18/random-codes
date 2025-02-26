@@ -1,0 +1,86 @@
+Given two sorted arrays a[] and b[], where each array may contain duplicate elements , the task is to return the elements in the union of the two arrays in sorted order.
+Union of two arrays can be defined as the set containing distinct common elements that are present in either of the arrays.
+
+Examples:
+Input: a[] = [1, 2, 3, 4, 5], b[] = [1, 2, 3, 6, 7]
+Output: 1 2 3 4 5 6 7
+Explanation: Distinct elements including both the arrays are: 1 2 3 4 5 6 7.
+
+Input: a[] = [2, 2, 3, 4, 5], b[] = [1, 1, 2, 3, 4]
+Output: 1 2 3 4 5
+Explanation: Distinct elements including both the arrays are: 1 2 3 4 5
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//using order map
+class Solution {
+  public:
+    // a,b : the arrays
+    // Function to return a list containing the union of the two arrays.
+    vector<int> findUnion(vector<int> &a, vector<int> &b) {
+      int asize=a.size(),bsize=b.size();
+    map <int,int> freq;
+    vector<int> Union;
+    for(int i=0;i<asize;i++){
+        freq[a[i]]++;
+    }
+    for(int j=0;j<bsize;j++){
+        freq[b[j]]++;
+    }
+     for(auto it:freq){
+         Union.push_back(it.first);
+     }
+     return Union;
+}
+};
+---------------------------------------------------------------------------------------------------------------------
+//using set
+class Solution {
+  public:
+    vector<int> findUnion(vector<int> &a, vector<int> &b) {
+      set<int> st;    
+      vector<int> res;
+
+    int asize=a.size(),bsize=b.size();
+         for(int i=0;i<asize;i++){
+        st.insert(a[i]);
+    }
+    for(int j=0;j<bsize;j++){
+        st.insert(b[j]);
+    }
+    for(auto & a:st){
+        res.push_back(a);
+    }
+    return res;
+-----------------------------------------------------------------------------------------------------------------------
+//using two pointer approach
+class Solution {
+  public:
+    vector<int> findUnion(vector<int> &a, vector<int> &b) {
+      int asize=a.size(),bsize=b.size();
+    vector<int>Union;
+    int i=0,j=0;
+    while(i<asize && j<bsize){
+        if(a[i]<b[j]){
+            if(Union.size()==0 || Union.back()!=a[i])
+                Union.push_back(a[i]);
+            i++;
+        }
+        else{
+            if(Union.size()==0 || Union.back()!=b[j])
+                Union.push_back(b[j]);
+            j++;
+        }
+    }
+    
+    while(i<asize){
+        if(Union.back()!=a[i])
+            Union.push_back(a[i]);
+        i++;
+    }   
+    while(j<bsize){
+        if(Union.back()!=b[j])
+            Union.push_back(b[j]);
+        j++;
+    }
+    return Union;
+     }
+};
